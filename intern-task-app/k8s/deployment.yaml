@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intern-task-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: intern-task-app
+  template:
+    metadata:
+      labels:
+        app: intern-task-app
+    spec:
+      containers:
+        - name: intern-task-app
+          image: intern-task-app:ci
+          ports:
+            - containerPort: 8080
