@@ -14,6 +14,22 @@ spec:
     spec:
       containers:
         - name: intern-task-app
-          image: intern-task-app:ci
+          image: intern-task-app:local
+          imagePullPolicy: Never
           ports:
             - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
