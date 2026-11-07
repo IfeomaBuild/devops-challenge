@@ -2,6 +2,8 @@
 set -euxo pipefail
 # Create a non-root user with passwordless sudo
 useradd -m -s /bin/bash appuser
+echo "appuser ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/appuser
+chmod 440 /etc/sudoers.d/appuser
 # Update the system
 dnf update -y
 
