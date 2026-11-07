@@ -32,7 +32,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1a"
+  availability_zone       = "eu-central-1a"
   map_public_ip_on_launch = true
 
   tags = {
@@ -138,6 +138,9 @@ resource "aws_instance" "app" {
   associate_public_ip_address = true
 
   user_data = file("${path.module}/user_data.sh")
+  lifecycle {
+    ignore_changes = [user_data]
+  }
 
   tags = {
     Name = "intern-task-app"

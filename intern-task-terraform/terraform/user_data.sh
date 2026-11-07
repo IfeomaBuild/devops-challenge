@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
-
+# Create a non-root user with passwordless sudo
+useradd -m -s /bin/bash appuser
 # Update the system
 dnf update -y
 
@@ -42,3 +43,9 @@ EOF
 # Enable and start the application
 systemctl daemon-reload
 systemctl enable --now intern-task-app.service
+# Configure the host firewall for the application
+dnf install -y firewalld
+systemctl enable --now firewalld
+firewall-cmd --permanent --add-service=ssh
+firewall-cmd --permanent --add-port=8080/tcp
+firewall-cmd --reload
