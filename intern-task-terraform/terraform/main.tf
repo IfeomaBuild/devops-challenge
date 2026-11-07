@@ -121,6 +121,7 @@ resource "aws_security_group" "app" {
 variable "ami_id" {
   description = "AMI ID for the EC2 instance"
   type        = string
+  default     = "ami-01376afa3e7def694"
 }
 
 # EC2 instance type
